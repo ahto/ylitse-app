@@ -3,6 +3,8 @@ import RN from 'react-native';
 
 import * as localization from '../../localization';
 
+import { TestID } from '../../test_id';
+
 import Message from './Message';
 import colors from './colors';
 import fonts from './fonts';
@@ -13,11 +15,12 @@ interface Props {
   style?: RN.StyleProp<RN.ViewStyle>;
   messageId: localization.MessageId;
   messageStyle?: RN.StyleProp<RN.TextStyle>;
+  testID?: TestID;
 }
 
-export default ({ onPress, style, messageId, messageStyle }: Props) => {
+export default ({ onPress, style, messageId, messageStyle, testID }: Props) => {
   return (
-    <ButtonContainer style={[styles.container, style]} onPress={onPress}>
+    <ButtonContainer style={[styles.container, style]} onPress={onPress} testID={testID}>
       <Message style={[styles.message, messageStyle]} id={messageId} />
     </ButtonContainer>
   );

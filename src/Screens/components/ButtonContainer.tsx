@@ -1,15 +1,18 @@
 import React from 'react';
 import RN from 'react-native';
 
+import { TestID } from '../../test_id';
+
 import colors from './colors';
 interface Props {
   onPress: () => void | undefined;
   style?: RN.StyleProp<RN.ViewStyle>;
+  testID?: TestID;
 }
 
-const ButtonContainer: React.FC<Props> = ({ onPress, style, children }) => {
+const ButtonContainer: React.FC<Props> = ({ onPress, style, children, testID }) => {
   return (
-    <RN.TouchableOpacity style={[styles.container, style]} onPress={onPress}>
+    <RN.TouchableOpacity style={[styles.container, style]} onPress={onPress} testID={testID}>
       {children}
     </RN.TouchableOpacity>
   );

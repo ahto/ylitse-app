@@ -14,6 +14,8 @@ import colors from '../components/colors';
 
 import { MentorListRoute } from './MentorList';
 
+import { testId } from '../../test_id';
+
 export type WelcomeRoute = {
   'Onboarding/Welcome': {};
 };
@@ -35,6 +37,7 @@ export default ({ navigation }: Props) => {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
+        testID={testId('onboarding.welcome.scrollView')}
       >
         <AppTitle style={styles.appTitle} />
         <Card style={styles.card}>
@@ -47,6 +50,7 @@ export default ({ navigation }: Props) => {
             messageStyle={styles.buttonText}
             messageId={'onboarding.welcome.button'}
             onPress={navigateNext}
+            testID={'onboarding.welcome.button'}
           />
         </Card>
         <SosBanner style={styles.banner} />
