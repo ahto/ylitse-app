@@ -1,8 +1,15 @@
 
-const testIds = [
-    'onboarding.welcome.scrollView',
-    'onboarding.welcome.button',
+const ids = [
+    'onboardingWelcomeScrollView',
+    'onboardingWelcomeButton',
 ] as const;
-export type TestID = typeof testIds[number];
+export type TestID = typeof ids[number];
 
-export const testId = (testId: TestID) => testId;
+type ITestIDsMap = {
+    [T in TestID]?: TestID;
+}
+
+export let testIds: ITestIDsMap = {};
+for (let id of ids) {
+    testIds[id] = id;
+}
