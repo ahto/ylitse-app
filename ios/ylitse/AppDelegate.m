@@ -42,4 +42,11 @@
 #endif
 }
 
+// https://stackoverflow.com/questions/54883304/unable-to-find-module-for-eventdispatcher-react-native
+#if RCT_DEV
+- (BOOL)bridge:(RCTBridge *)bridge didNotFindModule:(NSString *)moduleName {
+  return YES;
+}
+#endif
+
 @end
