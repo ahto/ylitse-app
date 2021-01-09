@@ -18,10 +18,11 @@ import * as topicState from '../../state/reducers/topic';
 import * as actions from '../../state/actions';
 
 type Props = {
+  skills?: any,
   onPress?: (mentor: mentorApi.Mentor) => void | undefined;
 };
 
-export default ({ onPress }: Props) => {
+export default ({ onPress, skills }: Props) => { 
   const userId = useSelector(tokenState.getUserId);
   const preferredTopic = useSelector(topicState.getPreferredTopic);
 
@@ -30,9 +31,19 @@ export default ({ onPress }: Props) => {
     dispatch({ type: 'mentors/start', payload: undefined });
   };
 
-  const mentorList = RD.remoteData.map(useSelector(mentorState.get), mentors =>
+  let mentorList = RD.remoteData.map(useSelector(mentorState.get), mentors =>
     mentors.filter(mentor => mentor.buddyId !== userId),
   );
+
+  if(skills){
+    mentorList = RD.remoteData.map(useSelector(mentorState.get), mentors =>
+      mentors.filter(mentor => 
+        mentor.buddyId !== userId && 
+        ((mentor.skills.filter((e)=>skills.includes(e))).length > 0),
+    ));
+  }
+
+  
 
   const [{ width, height }, onLayout] = useLayout();
   const measuredWidth = width || RN.Dimensions.get('window').width;

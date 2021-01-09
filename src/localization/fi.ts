@@ -162,6 +162,10 @@ export const messages = {
   'tabs.chats': 'Keskustelut',
   'tabs.mentors': 'Mentorit',
   'tabs.settings': 'Asetukset',
+
+  'main.mentorsTitleAndSearchButton.search': 'Hae',
+  'main.searchMentor.title': 'Hae mentoria',
+  'main.searchMentor.skillSearch.title': 'Hae',
 };
 
 export type MessageId = keyof typeof messages;

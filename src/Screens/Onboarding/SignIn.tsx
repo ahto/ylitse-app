@@ -13,7 +13,7 @@ import * as navigationProps from '../../lib/navigation-props';
 import OnboardingBackground from '../components/OnboardingBackground';
 import LoginCard from '../components/LoginCard';
 
-import { SelectTopicRoute } from './SelectTopic';
+import { MentorListRoute } from '../Main/MentorList';
 
 export type SignInRoute = {
   'Onboarding/SignIn': {};
@@ -26,13 +26,13 @@ type StateProps = {
 type DispatchProps = {
   login: (creds: authApi.Credentials) => void | undefined;
 };
-type OwnProps = navigationProps.NavigationProps<SignInRoute, SelectTopicRoute>;
+type OwnProps = navigationProps.NavigationProps<SignInRoute, MentorListRoute>;
 type Props = StateProps & DispatchProps & OwnProps;
 
 const SignIn = (props: Props) => {
   React.useEffect(() => {
     if (option.isSome(props.accessToken.currentToken)) {
-      props.navigation.navigate('Onboarding/SelectTopic', {});
+      props.navigation.navigate('Main/MentorList', {});
     }
   }, [props.accessToken]);
   const goBack = () => {

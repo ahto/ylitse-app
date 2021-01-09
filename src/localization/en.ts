@@ -164,4 +164,8 @@ export const messages: { [key in MessageId]: string } = {
   'tabs.chats': 'Chats',
   'tabs.mentors': 'Mentors',
   'tabs.settings': 'Settings',
+
+  'main.mentorsTitleAndSearchButton.search': 'Search',
+  'main.searchMentor.title': 'Search mentor',
+  'main.searchMentor.skillSearch.title': 'Search',
 };
