@@ -8,17 +8,21 @@ import { textShadow } from '../components/shadow';
 
 
 import * as localization from '../../localization';
+import MessageButtonWithIcon from './MessageButtonWithIcon';
 
 interface Props extends RN.TextProps {
   id: localization.MessageId;
   onPress: () => void | undefined;
 }
 
-const MentorsTitleAndSearchButton = ({ id, onPress, ...textProps }: Props) => (
-  <RN.View>
-    <RN.Text {...textProps}>{localization.trans(id)}</RN.Text>
-    <MessageButton
-            style={styles.deleteAccountButton}
+const MentorsTitleAndSearchButton = ({ id, onPress }: Props) => (
+  <RN.View style={{
+    flexDirection: "row",
+  }}>
+    <RN.Text style={styles.mentorsTitle}>{localization.trans(id)}</RN.Text>
+    <MessageButtonWithIcon
+            style={styles.searchButton}
+            messageStyle={styles.searchMessage}
             onPress={onPress}
             messageId={'main.mentorsTitleAndSearchButton.search'}
             testID={'main.mentorsTitleAndSearchButton.search'}
@@ -37,6 +41,16 @@ const styles = RN.StyleSheet.create({
   },
   title: {
     backgroundColor: colors.danger,
+  },
+  searchMessage: {
+    color: '#003263',
+  },
+  mentorsTitle: {
+    marginTop: 24,
+    marginBottom: 8,
+    ...fonts.titleLarge,
+    ...textShadow,
+    color: colors.white,
   },
   screenTitleText: {
     marginTop: 16,
@@ -72,6 +86,5 @@ const styles = RN.StyleSheet.create({
     justifyContent: 'flex-end',
     paddingHorizontal: 40,
   },
-  deleteAccountButton: { backgroundColor: colors.danger, marginBottom: 40 },
-  cancelButton: { backgroundColor: colors.gray, marginBottom: 40 },
+  searchButton: { backgroundColor: colors.faintGray },
 });

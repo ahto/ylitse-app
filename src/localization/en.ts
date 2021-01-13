@@ -165,7 +165,8 @@ export const messages: { [key in MessageId]: string } = {
   'tabs.mentors': 'Mentors',
   'tabs.settings': 'Settings',
 
-  'main.mentorsTitleAndSearchButton.search': 'Search',
-  'main.searchMentor.title': 'Search mentor',
+  'main.mentorsTitleAndSearchButton.search': 'Hae',
+  'main.mentorsTitleAndSearchButton.reset': 'Tyhjennä',
+  'main.searchMentor.title': 'Hae mentoria',
   'main.searchMentor.skillSearch.title': 'Search',
 };

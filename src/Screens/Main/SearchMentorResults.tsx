@@ -18,6 +18,8 @@ import fonts from '../components/fonts';
 
 import { MentorCardExpandedRoute } from './MentorCardExpanded';
 import MentorListComponent from '../components/MentorList';
+import TitledContainer from '../components/TitledContainer';
+import { textShadow } from '../components/shadow';
 
 
 const langMap: Record<string, RN.ImageSourcePropType> = {
@@ -41,9 +43,9 @@ type Props = OwnProps;
 
 const SearchMentorResults = ({ navigation }: Props) => {
   const skills = navigation.getParam('skills');
-  console.log("SKILLLSLSLSLSLSLSLS",skills)
+  console.log("SKILLLSLSLSLLSLSLS",skills)
   // const color = getBuddyColor(mentor.buddyId);
-  const goBack = () => {
+  const onPressBack = () => {
     navigation.goBack();
   };
   const onPressMentor = (mentor: mentorApi.Mentor) => {
@@ -53,44 +55,53 @@ const SearchMentorResults = ({ navigation }: Props) => {
   //   navigation.navigate('Main/Chat', { buddyId: mentor.buddyId });
   // };
   return (
-    <LinearGradient style={styles.container} colors={gradients.whitegray}>
-      <MentorListComponent skills={skills} onPress={onPressMentor} />
+    <TitledContainer
+      TitleComponent={
+        <RN.View style={styles.blobTitle}>
 
-      {/* <MentorTitle
-        style={styles.mentorTitle}
-        mentor={mentor}
-        onPress={goBack}
-        safeArea={true}
-      />
-      <RN.ScrollView
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        testID={'main.mentorCardExpanded.view'}
-      >
-        <RN.View style={styles.flagContainer}>
-          {mentor.languages.map(lang =>
-            lang in langMap ? (
-              <RN.Image style={styles.flag} key={lang} source={langMap[lang]} />
-            ) : null,
-          )}
+          <RN.TouchableOpacity style={styles.chevronButton} onPress={onPressBack}>
+            <RN.Image
+              source={require('../images/chevron-left.svg')}
+              style={styles.chevronIcon}
+            />
+          </RN.TouchableOpacity>
+          <Message id="main.searchMentor.title" style={styles.screenTitleText} />
         </RN.View>
-        <Message id={'main.mentor.story'} style={styles.subtitle} />
-        <MentorStory style={styles.story} story={mentor.story} showAll={true} />
-        <Skills style={styles.skills} color={color} skills={mentor.skills} />
-        <SafeAreaView style={styles.safeArea} forceInset={{ bottom: 'always' }}>
-          <Button
-            style={styles.button}
-            onPress={navigateToChat}
-            messageId="main.mentorCardExpanded.button"
-          />
-        </SafeAreaView>
-      </RN.ScrollView> */}
-    </LinearGradient>
+      }
+      gradient={gradients.pillBlue}
+    >
+      <MentorListComponent skills={skills} onPress={onPressMentor} />
+      </TitledContainer>
+    // </LinearGradient>
   );
 };
 
 const styles = RN.StyleSheet.create({
+  screenTitleText: {
+    marginTop: 16,
+    marginBottom: 16,
+    ...fonts.titleLarge,
+    ...textShadow,
+    textAlign: 'center',
+    color: colors.white,
+  },
+  chevronButton: {
+    marginRight: 0,
+    marginLeft: 0,
+  },
+  chevronIcon: {
+    tintColor: colors.white,
+    width: 48,
+    height: 48,
+  },
+  blobTitle: {
+    // borderBottomRightRadius: cardBorderRadius,
+    // borderBottomLeftRadius: cardBorderRadius,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   container: {
     flex: 1,
   },

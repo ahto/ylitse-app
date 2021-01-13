@@ -164,6 +164,7 @@ export const messages = {
   'tabs.settings': 'Asetukset',
 
   'main.mentorsTitleAndSearchButton.search': 'Hae',
+  'main.mentorsTitleAndSearchButton.reset': 'Tyhjennä',
   'main.searchMentor.title': 'Hae mentoria',
   'main.searchMentor.skillSearch.title': 'Hae',
 };

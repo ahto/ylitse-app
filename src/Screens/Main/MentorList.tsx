@@ -1,5 +1,5 @@
 import React from 'react';
-import RN from 'react-native';
+import RN, { Alert } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 
 import * as navigationProps from '../../lib/navigation-props';
@@ -29,9 +29,11 @@ type Props = OwnProps;
 
 const MentorList = (props: Props) => {
   const onPressMentor = (mentor: mentorApi.Mentor) => {
+    // console.log('onPressMentor');
     props.navigation.navigate('Main/MentorCardExpanded', { mentor });
   };
   const onPressSearchMentor = () => {
+    // console.log('onPressSearchMentor');
     props.navigation.navigate('Main/SearchMentor', {});
   };
   return (
@@ -40,7 +42,7 @@ const MentorList = (props: Props) => {
         style={styles.container}
         forceInset={{ top: 'always', bottom: 'always' }}
       >
-        <MentorsTitleAndSearchButton style={styles.title} id="main.mentorList.title" onPress={onPressSearchMentor} />
+        <MentorsTitleAndSearchButton id="main.mentorList.title" onPress={onPressSearchMentor} />
         <MentorListComponent onPress={onPressMentor} />
         <RN.View style={styles.bottomSeparator} />
       </SafeAreaView>
@@ -52,13 +54,6 @@ const styles = RN.StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-  },
-  title: {
-    marginTop: 24,
-    marginBottom: 8,
-    ...fonts.titleLarge,
-    ...textShadow,
-    color: colors.white,
   },
   bottomSeparator: {
     height: 96,

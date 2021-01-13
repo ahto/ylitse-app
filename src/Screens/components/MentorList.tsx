@@ -35,7 +35,7 @@ export default ({ onPress, skills }: Props) => {
     mentors.filter(mentor => mentor.buddyId !== userId),
   );
 
-  if(skills){
+  if(skills && skills.length > 0){
     mentorList = RD.remoteData.map(useSelector(mentorState.get), mentors =>
       mentors.filter(mentor => 
         mentor.buddyId !== userId && 
