@@ -1,15 +1,15 @@
 import React from 'react';
 import RN, { Alert } from 'react-native';
-import * as redux from 'redux';
+// import * as redux from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 // import * as O from 'fp-ts/lib/Option';
 import * as RD from '@devexperts/remote-data-ts';
 
 import * as navigationProps from '../../lib/navigation-props';
 
-import * as topicApi from '../../api/topic-storage';
+// import * as topicApi from '../../api/topic-storage';
 // import { storeTopic } from '../../state/reducers/topic';
-import * as actions from '../../state/actions';
+// import * as actions from '../../state/actions';
 
 // import Background from '../components/Background';
 // import Card from '../components/Card';
@@ -22,9 +22,9 @@ import TextButton from '../components/TextButton';
 import TitledContainer from '../components/TitledContainer';
 import { textShadow } from '../components/shadow';
 import colors, { gradients } from '../components/colors';
-import NamedInputField from '../components/NamedInputField';
+// import NamedInputField from '../components/NamedInputField';
 
-import { SafeAreaView } from 'react-navigation';
+// import { SafeAreaView } from 'react-navigation';
 
 // import { TabsRoute } from '../Main/Tabs';
 // import navigateMain from '../Onboarding/navigateMain';
@@ -33,8 +33,9 @@ import * as mentorState from '../../state/reducers/mentors';
 import RemoteData from '../components/RemoteData';
 // import * as mentorApi from '../../api/mentors';
 import { SearchMentorResultsRoute } from './SearchMentorResults';
-import useLayout from '../../lib/use-layout';
-import { color } from 'react-native-reanimated';
+// import useLayout from '../../lib/use-layout';
+// import { color } from 'react-native-reanimated';
+import CreatedBySosBanner from '../components/CreatedBySosBanner';
 
 export type SearchMentorRoute = {
   'Main/SearchMentor': {};
@@ -42,17 +43,16 @@ export type SearchMentorRoute = {
 
 type Props = navigationProps.NavigationProps<SearchMentorRoute, SearchMentorResultsRoute>;
 
-function uniq(a: Iterable<string> | null | undefined) {
-  return Array.from(new Set(a));
-}
 
 export default ({ navigation }: Props) => {
   const [selectedSkills, selectSkill] = React.useState<{selected: string[]}>({selected: []})
   const [skillSearch, setSkillSearch] = React.useState('');
+  // const [skillSkills, setSkills] = React.useState();
+
 
   console.log("selectedSkills", selectedSkills);
 
-  const dispatch = useDispatch<redux.Dispatch<actions.Action>>();
+  // const dispatch = useDispatch<redux.Dispatch<actions.Action>>();
   const fetchMentorsasdasdad = () => {
     console.log("fetchMentorsasdasdad");
     //dispatch({ type: 'mentors/start', payload: undefined });
@@ -67,6 +67,7 @@ export default ({ navigation }: Props) => {
   );
   console.log('skillsList');
   console.log(skillsList);
+  // setSkills(skillsList.)
 
   // const select = (topic: O.Option<topicApi.Topic>) => () => {
   //   dispatch(storeTopic(topic));
@@ -105,11 +106,13 @@ export default ({ navigation }: Props) => {
     selectSkill({selected: []})
   };
 
-  const [{ width, height }, onLayout] = useLayout();
-
-  const measuredWidth = width || RN.Dimensions.get('window').width;
-  const maxHeight = height - 140;
+  // const [{ width, height }, onLayout] = useLayout();
+  // const measuredWidth = width || RN.Dimensions.get('window').width;
+  // const maxHeight = height - 180;
   // console.log(height);
+  // console.log(maxHeight);
+
+  const maxHeight = RN.Dimensions.get('window').height - 370;
 
   // {
   //   maxHeight: maxHeight - mentorCardBottomMargin,
@@ -139,6 +142,7 @@ export default ({ navigation }: Props) => {
 marginTop: 30,
 marginLeft: 30,
 marginRight: 30,
+// backgroundColor: colors.white,
 }}>
       <RN.View  style={{
         flexDirection: "row",
@@ -155,21 +159,28 @@ marginRight: 30,
           resizeMethod="scale" />
       </RN.View>
 
-
+      <RN.View>
       <RemoteData data={skillsList} fetchData={fetchMentorsasdasdad}>
         {skills => (
-
+          <RN.View >
+            <RN.Image
+        style={styles.topGradient}
+        source={require('../images/gradient.svg')}
+        resizeMode="stretch"
+        resizeMethod="scale"
+      />
           <RN.ScrollView style={{...styles.carouselContainer,height: maxHeight}}
           showsHorizontalScrollIndicator={true}
           // style={styles.content}
         contentContainerStyle={styles.contentContainer}
           >
-            <RN.View  onLayout={onLayout} style={styles.chipContainer}>
+            <RN.View   style={styles.chipContainer}>
             {skills.map(skill => {
               const isSelected = selectedSkills.selected.includes(skill);
               // const onPressSkill = (item) => {onPressSkill(item)};
 
               return <TextButton
+              key={skill}
               style={ isSelected ? styles.skillPillButtonSelected : styles.skillPillButton}
               onPress={() => onPressSkill(skill)}
               text={skill}
@@ -179,8 +190,17 @@ marginRight: 30,
             })}
             </RN.View>
           </RN.ScrollView>
+          <RN.Image
+        style={styles.bottomGradient}
+        source={require('../images/gradient.svg')}
+        resizeMode="stretch"
+        resizeMethod="scale"
+      />
+          </RN.View>
+          
         )}
       </RemoteData>
+      </RN.View>
       <RN.View style={styles.searcResetContainer}>
         <MessageButton
             style={styles.resetButton}
@@ -198,13 +218,31 @@ marginRight: 30,
           
           </RN.View>
           </RN.View>
+          <CreatedBySosBanner style={styles.banner} />
     </TitledContainer>
   );
 };
 
 const styles = RN.StyleSheet.create({
+  topGradient: {
+    height: 40,
+    tintColor: '#EFF5F9',
+    marginBottom: -40,
+    width: '100%',
+    alignSelf: 'stretch',
+    zIndex: 1,
+  },
+  bottomGradient: {
+    height: 40,
+    tintColor: '#EFF5F9',
+    marginTop: -40,
+    width: '100%',
+    alignSelf: 'stretch',
+    transform: [{ rotate: '180deg' }],
+    zIndex: 1,
+  },
   chipContainer: {
-    marginTop: 16,
+    marginTop: -5,
     marginBottom: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -220,6 +258,7 @@ const styles = RN.StyleSheet.create({
     // flexWrap: "wrap",
     flexShrink: 1,
     // height: 200,
+    
   },
   icon: {
     tintColor: colors.faintBlue,
@@ -260,7 +299,7 @@ const styles = RN.StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 16,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center',   
   },
   card: {
     padding: 24,
@@ -301,16 +340,10 @@ const styles = RN.StyleSheet.create({
     textAlign: 'center',
     color: colors.white,
   },
-  scrollView: {
-    zIndex: 1,
-    marginTop: -32,
-  },
-  scrollContent: {
-    paddingTop: 48,
-    paddingBottom: 320,
-    paddingHorizontal: 16,
-  },
-  scrollContainer: { paddingHorizontal: 16 },
+  // scrollView: {
+  //   zIndex: 1,
+  //   marginTop: -32,
+  // },
   skillPillButton: { 
     backgroundColor: '#9FE1F5',
     margin: 4,
@@ -329,16 +362,41 @@ const styles = RN.StyleSheet.create({
     alignItems: 'center',
     flex: 0,
     alignSelf: 'baseline',
+    // alignSelf: 'stretch',
+    // flexGrow: 1,
     paddingTop: 2,
     paddingBottom: 3,
     paddingHorizontal: 16,
     marginRight: 8,
     marginBottom: 8,
+
+    
 },
   skillPillButtonSelected: { 
     backgroundColor: '#00BEEA',
     margin: 4,
     minHeight: 20,
+    // alignSelf: 'stretch',
+    // // borderRadius,
+    // paddingVertical: 4,
+    // paddingHorizontal: 16,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // flexDirection: 'column',
+    // backgroundColor: colors.blue80,
+    // backgroundColor: colors.blue40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 0,
+    alignSelf: 'baseline',
+    // alignSelf: 'stretch',
+    // flexGrow: 1,
+    paddingTop: 2,
+    paddingBottom: 3,
+    paddingHorizontal: 16,
+    marginRight: 8,
+    marginBottom: 8,
   },
   skillPillButtonText: {
     // margin: 0,
@@ -346,13 +404,18 @@ const styles = RN.StyleSheet.create({
     color: colors.white,
   },
   searchButton: { backgroundColor: '#A2CD84', marginBottom: 40 },
-
   resetButton: { backgroundColor: '#EEF4F9', marginBottom: 40 },
   resetButtonText: { color: '#003A6E' },
   searcResetContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginTop: 30,
-  }
-  
+    marginTop: 20,
+    // position: 'absolute', bottom: 16, alignSelf: 'center'
+  },
+    banner: { 
+      // position: 'absolute', 
+      bottom: 16, 
+      alignSelf: 'center' 
+    },
+
 });
