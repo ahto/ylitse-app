@@ -60,5 +60,6 @@ const styles = RN.StyleSheet.create({
     textAlign: 'center',
     color: colors.white,
     flexDirection: 'column',
+    paddingLeft: 5,
   },
 });

@@ -34,6 +34,7 @@ import RemoteData from '../components/RemoteData';
 // import * as mentorApi from '../../api/mentors';
 import { SearchMentorResultsRoute } from './SearchMentorResults';
 import useLayout from '../../lib/use-layout';
+import { color } from 'react-native-reanimated';
 
 export type SearchMentorRoute = {
   'Main/SearchMentor': {};
@@ -46,7 +47,7 @@ function uniq(a: Iterable<string> | null | undefined) {
 }
 
 export default ({ navigation }: Props) => {
-  const [selectedSkills, selectSkill] = React.useState({selected: []});
+  const [selectedSkills, selectSkill] = React.useState<{selected: string[]}>({selected: []})
   const [skillSearch, setSkillSearch] = React.useState('');
 
   console.log("selectedSkills", selectedSkills);
@@ -107,15 +108,18 @@ export default ({ navigation }: Props) => {
   const [{ width, height }, onLayout] = useLayout();
 
   const measuredWidth = width || RN.Dimensions.get('window').width;
+  const maxHeight = height - 140;
+  // console.log(height);
 
-  const interval = measuredWidth * (0.85 + 0.15 / 4);
-
-  const deccelerationRate = RN.Platform.OS === 'ios' ? 0.99 : 0.8;
-
+  // {
+  //   maxHeight: maxHeight - mentorCardBottomMargin,
+  //   width: screenWidth * 0.85,
+  //   marginRight: (0.15 / 4) * screenWidth,
+  // },
   
 
   return (
-    <TitledContainer
+    <TitledContainer 
       TitleComponent={
         <RN.View style={styles.blobTitle}>
 
@@ -131,8 +135,15 @@ export default ({ navigation }: Props) => {
       gradient={gradients.pillBlue}
     >
 
-      <RN.View style={{
-        flexDirection: "row"
+<RN.View  style={{
+marginTop: 30,
+marginLeft: 30,
+marginRight: 30,
+}}>
+      <RN.View  style={{
+        flexDirection: "row",
+        justifyContent: "center",
+        marginBottom: 30,
       }}>
         <RN.TextInput
           style={styles.searchField}
@@ -147,25 +158,27 @@ export default ({ navigation }: Props) => {
 
       <RemoteData data={skillsList} fetchData={fetchMentorsasdasdad}>
         {skills => (
-          <RN.View style={styles.carouselContainer}>
-            <RN.FlatList
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={true}
-              initialNumToRender={2}
-              // decelerationRate={deccelerationRate}
-              // snapToInterval={interval}
-              contentContainerStyle={{
-                padding: 0,
-                margin: 0,
-                width: 100,
-              }}
-              data={[...skills]}
-              renderItem={renderSkillButton(200, 200, (item) => {return selectedSkills.selected.includes(item)}, (item) => {onPressSkill(item)})}
-              keyExtractor={(item) => item}
-              // horizontal={true}
-              // testID={'components.mentorList'}
+
+          <RN.ScrollView style={{...styles.carouselContainer,height: maxHeight}}
+          showsHorizontalScrollIndicator={true}
+          // style={styles.content}
+        contentContainerStyle={styles.contentContainer}
+          >
+            <RN.View  onLayout={onLayout} style={styles.chipContainer}>
+            {skills.map(skill => {
+              const isSelected = selectedSkills.selected.includes(skill);
+              // const onPressSkill = (item) => {onPressSkill(item)};
+
+              return <TextButton
+              style={ isSelected ? styles.skillPillButtonSelected : styles.skillPillButton}
+              onPress={() => onPressSkill(skill)}
+              text={skill}
+              textStyle={styles.skillPillButtonText}
+              // testID={'main.mentorsTitleAndSearchButton.search'}
             />
-          </RN.View>
+            })}
+            </RN.View>
+          </RN.ScrollView>
         )}
       </RemoteData>
       <RN.View style={styles.searcResetContainer}>
@@ -184,37 +197,48 @@ export default ({ navigation }: Props) => {
           />
           
           </RN.View>
+          </RN.View>
     </TitledContainer>
   );
 };
 
-const renderSkillButton = (
-  maxHeight: number,
-  screenWidth: number,
-  isSelected: (skill: any) => boolean,
-  onPressSkill: (skill: any) => void | undefined,
-) => ({ item }: { item: any }) => (
-  <TextButton
-            style={ isSelected(item) ? styles.deleteAccountButtonSelected : styles.deleteAccountButton}
-            onPress={() => onPressSkill(item)}
-            text={item}
-            textStyle={styles.deleteAccountButtonText}
-            // testID={'main.mentorsTitleAndSearchButton.search'}
-          />
-  
-);
-
 const styles = RN.StyleSheet.create({
+  chipContainer: {
+    marginTop: 16,
+    marginBottom: 16,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  contentContainer: {
+    padding: 24,
+    justifyContent: 'space-between',
+    flexGrow: 1,
+  },
+  carouselContainer: {
+    // flex: 1, 
+    // flexDirection: 'row',
+    // flexWrap: "wrap",
+    flexShrink: 1,
+    // height: 200,
+  },
   icon: {
     tintColor: colors.faintBlue,
-    height: 20,
-    width: 20,
+    height: 35,
+    width: 35,
+    position: "relative",
+    marginLeft: -40,
+    marginTop: 10,
+    // translateX: -40,
+    // translateY: 10,
   },
   searchField: {
-    width: 400,
-    borderColor: 'black',
+    flex: 1,
+    // width: measuredWidth,
+    borderColor: '#D2D9DE',
     borderWidth: 1,
     backgroundColor: '#EBF2F8',
+    borderRadius: 20,
+    // margin: "0 auto",
   },
   chevronButton: {
     marginRight: 0,
@@ -286,27 +310,49 @@ const styles = RN.StyleSheet.create({
     paddingBottom: 320,
     paddingHorizontal: 16,
   },
-  mentorListContainer: {
-    flexGrow: 1,
-  },
-  carouselContainer: {
-    flex: 1, 
-    flexDirection: 'row',
-  },
   scrollContainer: { paddingHorizontal: 16 },
-  deleteAccountButton: { backgroundColor: '#9FE1F5', 
-  flex: 1,
-  // height: 100;
-  // margin-bottom: 2%; 
+  skillPillButton: { 
+    backgroundColor: '#9FE1F5',
+    margin: 4,
+    minHeight: 20,
+    // alignSelf: 'stretch',
+    // // borderRadius,
+    // paddingVertical: 4,
+    // paddingHorizontal: 16,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // flexDirection: 'column',
+    // backgroundColor: colors.blue80,
+    // backgroundColor: colors.blue40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 0,
+    alignSelf: 'baseline',
+    paddingTop: 2,
+    paddingBottom: 3,
+    paddingHorizontal: 16,
+    marginRight: 8,
+    marginBottom: 8,
 },
-  deleteAccountButtonSelected: { backgroundColor: '#00BEEA'},
-  deleteAccountButtonText: {},
+  skillPillButtonSelected: { 
+    backgroundColor: '#00BEEA',
+    margin: 4,
+    minHeight: 20,
+  },
+  skillPillButtonText: {
+    // margin: 0,
+    // padding: 0,
+    color: colors.white,
+  },
   searchButton: { backgroundColor: '#A2CD84', marginBottom: 40 },
 
   resetButton: { backgroundColor: '#EEF4F9', marginBottom: 40 },
   resetButtonText: { color: '#003A6E' },
   searcResetContainer: {
     flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 30,
   }
   
 });

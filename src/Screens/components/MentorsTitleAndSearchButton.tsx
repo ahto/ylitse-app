@@ -18,6 +18,10 @@ interface Props extends RN.TextProps {
 const MentorsTitleAndSearchButton = ({ id, onPress }: Props) => (
   <RN.View style={{
     flexDirection: "row",
+    // justifyContent: "center",
+    // alignItems: "center",
+    // alignContent: "center",
+    // alignSelf: "center",
   }}>
     <RN.Text style={styles.mentorsTitle}>{localization.trans(id)}</RN.Text>
     <MessageButtonWithIcon
@@ -35,6 +39,14 @@ const MentorsTitleAndSearchButton = ({ id, onPress }: Props) => (
 export default MentorsTitleAndSearchButton;
 
 const styles = RN.StyleSheet.create({
+  searchButton: { backgroundColor: colors.faintGray,
+    marginTop: 24,
+    marginBottom: 8,
+    height: "50%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+
+  },
   screen: {
     flex: 1,
     backgroundColor: colors.white,
@@ -86,5 +98,5 @@ const styles = RN.StyleSheet.create({
     justifyContent: 'flex-end',
     paddingHorizontal: 40,
   },
-  searchButton: { backgroundColor: colors.faintGray },
+  
 });
