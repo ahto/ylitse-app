@@ -50,11 +50,11 @@ export default ({ navigation }: Props) => {
   // const [skillSkills, setSkills] = React.useState();
 
 
-  console.log("selectedSkills", selectedSkills);
+  // console.log("selectedSkills", selectedSkills);
 
   // const dispatch = useDispatch<redux.Dispatch<actions.Action>>();
   const fetchMentorsasdasdad = () => {
-    console.log("fetchMentorsasdasdad");
+    // console.log("fetchMentorsasdasdad");
     //dispatch({ type: 'mentors/start', payload: undefined });
   };
 
@@ -65,8 +65,8 @@ export default ({ navigation }: Props) => {
     .filter((e)=>(skillSearch ? e.toLowerCase().includes(skillSearch.toLowerCase()):true)) // skill searching
     .sort() // simple alphabetical sort
   );
-  console.log('skillsList');
-  console.log(skillsList);
+  // console.log('skillsList');
+  // console.log(skillsList);
   // setSkills(skillsList.)
 
   // const select = (topic: O.Option<topicApi.Topic>) => () => {
@@ -74,14 +74,14 @@ export default ({ navigation }: Props) => {
   //   navigateMain(navigation);
   // };
 
-  const search = "";
+  // const search = "";
 
-  const onFilter = () => {
-    console.log('onFilter');
-  };
+  // const onFilter = () => {
+  //   console.log('onFilter');
+  // };
 
   const onPressSearch = () => {
-    console.log('onPressSearch');
+    // console.log('onPressSearch');
     navigation.navigate('Main/SearchMentorResults', { skills: selectedSkills.selected });
   };
 
@@ -242,7 +242,7 @@ const styles = RN.StyleSheet.create({
     zIndex: 1,
   },
   chipContainer: {
-    marginTop: -5,
+    marginTop: 0,
     marginBottom: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',

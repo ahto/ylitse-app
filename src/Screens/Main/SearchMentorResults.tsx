@@ -43,7 +43,7 @@ type Props = OwnProps;
 
 const SearchMentorResults = ({ navigation }: Props) => {
   const skills = navigation.getParam('skills');
-  console.log("SKILLLSLSLSLLSLSLS",skills)
+  // console.log("SKILLLSLSLSLLSLSLS",skills)
   // const color = getBuddyColor(mentor.buddyId);
   const onPressBack = () => {
     navigation.goBack();

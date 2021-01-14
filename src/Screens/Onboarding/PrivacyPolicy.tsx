@@ -21,7 +21,8 @@ import Button from '../components/Button';
 import ErrorMessage from '../components/ErrorMessage';
 import Link from '../components/Link';
 
-import { MentorListRoute } from '../Main/MentorList';
+import navigateMain from './navigateMain';
+import { TabsRoute } from '../Main/Tabs';
 
 export type PrivacyPolicyRoute = {
   'Onboarding/PrivacyPolicy': { user: accountApi.User };
@@ -37,7 +38,7 @@ type DispatchProps = {
 };
 type OwnProps = navigationProps.NavigationProps<
   PrivacyPolicyRoute,
-  MentorListRoute
+  TabsRoute
 >;
 
 type Props = StateProps & DispatchProps & OwnProps;
@@ -50,7 +51,8 @@ const PrivacyPolicy = ({
 }: Props) => {
   React.useEffect(() => {
     if (O.isSome(accessToken.currentToken)) {
-      navigation.navigate('Main/MentorList', {});
+      // navigation.navigate('Main/MentorList', {});
+      navigateMain(navigation);
     }
   }, [accessToken]);
   const [isAgreed, setAgreed] = React.useState(false);
