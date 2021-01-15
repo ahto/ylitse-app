@@ -70,13 +70,18 @@ const SearchMentorResults = ({ navigation }: Props) => {
       }
       gradient={gradients.pillBlue}
     >
-      <MentorListComponent skills={skills} onPress={onPressMentor} />
+      <RN.View style={styles.results}></RN.View>
+        <MentorListComponent skills={skills} onPress={onPressMentor} />
+      
       </TitledContainer>
     // </LinearGradient>
   );
 };
 
 const styles = RN.StyleSheet.create({
+  results: {
+    marginTop: 20,
+  },
   screenTitleText: {
     marginTop: 16,
     marginBottom: 16,
@@ -93,6 +98,8 @@ const styles = RN.StyleSheet.create({
     tintColor: colors.white,
     width: 48,
     height: 48,
+    marginLeft: -40,
+    marginTop: -8,
   },
   blobTitle: {
     // borderBottomRightRadius: cardBorderRadius,

@@ -36,6 +36,8 @@ import { SearchMentorResultsRoute } from './SearchMentorResults';
 // import useLayout from '../../lib/use-layout';
 // import { color } from 'react-native-reanimated';
 import CreatedBySosBanner from '../components/CreatedBySosBanner';
+import { cardBorderRadius } from '../components/Card';
+// import { SafeAreaView } from 'react-navigation';
 
 export type SearchMentorRoute = {
   'Main/SearchMentor': {};
@@ -120,19 +122,39 @@ export default ({ navigation }: Props) => {
   //   marginRight: (0.15 / 4) * screenWidth,
   // },
   
+  const color = colors.blue60;
 
   return (
     <TitledContainer 
       TitleComponent={
-        <RN.View style={styles.blobTitle}>
-
-          <RN.TouchableOpacity style={styles.chevronButton} onPress={onPressBack}>
+        <RN.View style={{
+          paddingVertical: 16,
+          paddingHorizontal: 16,
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}>
+          <RN.TouchableOpacity style={{
+            marginRight: 0,
+            marginLeft: -40,
+            marginTop: -8,
+          }} onPress={onPressBack}>
             <RN.Image
               source={require('../images/chevron-left.svg')}
-              style={styles.chevronIcon}
+              style={{
+                tintColor: colors.white,
+                width: 48,
+                height: 48,
+              }}
             />
           </RN.TouchableOpacity>
-          <Message id="main.searchMentor.title" style={styles.screenTitleText} />
+          <Message id="main.searchMentor.title" style={{
+            marginTop: 16,
+            marginBottom: 16,
+            ...fonts.titleLarge,
+            ...textShadow,
+            textAlign: 'center',
+            color: colors.white,
+          }} />
         </RN.View>
       }
       gradient={gradients.pillBlue}
@@ -224,6 +246,19 @@ marginRight: 30,
 };
 
 const styles = RN.StyleSheet.create({
+  name: {
+    ...fonts.titleBold,
+    flex: 1,
+    flexWrap: 'wrap',
+  },
+  blob: {
+    borderBottomRightRadius: cardBorderRadius,
+    borderBottomLeftRadius: cardBorderRadius,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   topGradient: {
     height: 40,
     tintColor: '#EFF5F9',
@@ -234,7 +269,7 @@ const styles = RN.StyleSheet.create({
   },
   bottomGradient: {
     height: 40,
-    tintColor: '#EFF5F9',
+    tintColor: '#fff',
     marginTop: -40,
     width: '100%',
     alignSelf: 'stretch',
@@ -266,7 +301,7 @@ const styles = RN.StyleSheet.create({
     width: 35,
     position: "relative",
     marginLeft: -40,
-    marginTop: 10,
+    marginTop: 3,
     // translateX: -40,
     // translateY: 10,
   },
@@ -277,11 +312,14 @@ const styles = RN.StyleSheet.create({
     borderWidth: 1,
     backgroundColor: '#EBF2F8',
     borderRadius: 20,
+    height: 40,
     // margin: "0 auto",
   },
   chevronButton: {
     marginRight: 0,
-    marginLeft: 0,
+    // marginLeft: 0,
+    marginLeft: -40,
+    marginTop: -8,
   },
   chevronIcon: {
     tintColor: colors.white,
@@ -414,7 +452,7 @@ const styles = RN.StyleSheet.create({
   },
     banner: { 
       // position: 'absolute', 
-      bottom: 16, 
+      bottom: 30, 
       alignSelf: 'center' 
     },
 
