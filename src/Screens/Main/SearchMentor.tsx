@@ -132,11 +132,15 @@ export default ({ navigation }: Props) => {
           paddingHorizontal: 16,
           flexDirection: 'row',
           alignItems: 'center',
+          justifyContent: 'space-between',
+          // flex: 1,
         }}>
           <RN.TouchableOpacity style={{
             marginRight: 0,
-            marginLeft: -40,
+            // marginLeft: -40,
             marginTop: -8,
+            flex: 1,
+            // width: 40,
           }} onPress={onPressBack}>
             <RN.Image
               source={require('../images/chevron-left.svg')}
@@ -154,7 +158,9 @@ export default ({ navigation }: Props) => {
             ...textShadow,
             textAlign: 'center',
             color: colors.white,
+            flex:4,
           }} />
+          <RN.View style={{flex: 1}}></RN.View>
         </RN.View>
       }
       gradient={gradients.pillBlue}

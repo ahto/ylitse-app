@@ -57,15 +57,40 @@ const SearchMentorResults = ({ navigation }: Props) => {
   return (
     <TitledContainer
       TitleComponent={
-        <RN.View style={styles.blobTitle}>
-
-          <RN.TouchableOpacity style={styles.chevronButton} onPress={onPressBack}>
+        <RN.View style={{
+          paddingVertical: 16,
+          paddingHorizontal: 16,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          // flex: 1,
+        }}>
+          <RN.TouchableOpacity style={{
+            marginRight: 0,
+            // marginLeft: -40,
+            marginTop: -8,
+            flex: 1,
+            // width: 40,
+          }} onPress={onPressBack}>
             <RN.Image
               source={require('../images/chevron-left.svg')}
-              style={styles.chevronIcon}
+              style={{
+                tintColor: colors.white,
+                width: 48,
+                height: 48,
+              }}
             />
           </RN.TouchableOpacity>
-          <Message id="main.searchMentor.title" style={styles.screenTitleText} />
+          <Message id="main.searchMentor.title" style={{
+            marginTop: 16,
+            marginBottom: 16,
+            ...fonts.titleLarge,
+            ...textShadow,
+            textAlign: 'center',
+            color: colors.white,
+            flex:4,
+          }} />
+          <RN.View style={{flex: 1}}></RN.View>
         </RN.View>
       }
       gradient={gradients.pillBlue}

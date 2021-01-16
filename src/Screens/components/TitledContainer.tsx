@@ -44,7 +44,7 @@ const styles = RN.StyleSheet.create({
     borderBottomRightRadius: 40,
     alignSelf: 'stretch',
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
   },
 });
 
