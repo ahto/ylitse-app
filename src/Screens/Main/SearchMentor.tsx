@@ -158,7 +158,7 @@ export default ({ navigation }: Props) => {
             ...textShadow,
             textAlign: 'center',
             color: colors.white,
-            flex:4,
+            flex:6,
           }} />
           <RN.View style={{flex: 1}}></RN.View>
         </RN.View>
