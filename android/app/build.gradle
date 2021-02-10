@@ -175,13 +175,12 @@ android {
             // see https://reactnative.dev/docs/signed-apk-android.
 
             // appcenter.ms does its own app signing so disable it here.
-            // if(isAppCenterBuild){
-            //     signingConfig null
-            // }else{    
-            //     signingConfig signingConfigs.release
-            // }
+            if(isAppCenterBuild){
+                signingConfig null
+            }else{    
+                signingConfig signingConfigs.release
+            }
 
-            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
