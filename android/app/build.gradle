@@ -120,6 +120,11 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  */
 def enableHermes = project.ext.react.get("enableHermes", false);
 
+/**
+ * Detect if build is run inside appcenter.ms
+ */
+def isAppCenterBuild = System.getenv('APPCENTER_BUILD_ID') ? true : false;
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -168,6 +173,12 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
+
+            // appcenter.ms does its own app signing so disable it here.
+            if(!isAppCenterBuild){
+                signingConfig signingConfigs.release
+            }
+
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
